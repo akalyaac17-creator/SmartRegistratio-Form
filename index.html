@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Student Form</title>
+
+    <style>
+        body {
+            font-family: Arial;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .form {
+            width: 400px;
+            margin: 30px auto;
+        }
+
+        .form table {
+            width: 100%;
+        }
+
+        .form td {
+            padding: 8px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 5px;
+        }
+
+        input[type="radio"] {
+            width: auto;
+        }
+
+        .add {
+            width: 100%;
+            background-color: lightgreen;
+            padding: 8px;
+        }
+
+        .student-table {
+            margin: 30px auto;
+            border-collapse: collapse;
+        }
+
+        .student-table th,
+        .student-table td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        .delete {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>STUDENT FORM</h1>
+
+    <!-- FORM -->
+    <div class="form">
+
+        <table>
+
+            <tr>
+                <td>Name</td>
+                <td>
+                    <input type="text" id="name">
+                </td>
+            </tr>
+
+            <tr>
+                <td>Age</td>
+                <td>
+                    <input type="number" id="age">
+                </td>
+            </tr>
+
+            <tr>
+                <td>Gender</td>
+                <td>
+                    <input type="radio" name="gender" value="Male"> Male
+                    <input type="radio" name="gender" value="Female"> Female
+                </td>
+            </tr>
+
+            <tr>
+                <td>Course</td>
+                <td>
+                    <select id="course">
+                        <option>JavaScript</option>
+                        <option>HTML</option>
+                        <option>CSS</option>
+                        <option>React</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Email</td>
+                <td>
+                    <input type="email" id="email">
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <button class="add" onclick="addStudent()">Add</button>
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <!-- TABLE -->
+    <table class="student-table">
+
+        <tr>
+            <th>NAME</th>
+            <th>AGE</th>
+            <th>COURSE</th>
+            <th>GENDER</th>
+            <th>EMAIL</th>
+            <th>ACTION</th>
+        </tr>
+
+        <tbody id="studentList">
+
+        </tbody>
+
+    </table>
+
+
+    <script>
+
+        function addStudent() {
+
+            // Get form values
+            var name = document.getElementById("name").value;
+            var age = document.getElementById("age").value;
+            var course = document.getElementById("course").value;
+            var email = document.getElementById("email").value;
+
+            // Get gender
+            var gender = document.querySelector(
+                'input[name="gender"]:checked'
+            );
+
+
+            // Check fields
+            if (name == "" || age == "" || email == "" || gender == null) {
+
+                alert("Please fill all the fields");
+
+                return;
+            }
+
+
+            // Create table row
+            var row = document.createElement("tr");
+
+
+            // Add data into row
+            row.innerHTML =
+                "<td>" + name + "</td>" +
+                "<td>" + age + "</td>" +
+                "<td>" + course + "</td>" +
+                "<td>" + gender.value + "</td>" +
+                "<td>" + email + "</td>" +
+                "<td><button class='delete' onclick='deleteStudent(this)'>Delete</button></td>";
+
+
+            // Add row to table
+            document.getElementById("studentList").appendChild(row);
+
+
+            // Clear form
+            document.getElementById("name").value = "";
+            document.getElementById("age").value = "";
+            document.getElementById("email").value = "";
+
+            gender.checked = false;
+        }
+
+
+        function deleteStudent(button) {
+
+            button.parentElement.parentElement.remove();
+
+        }
+
+    </script>
+
+</body>
+
+</html>
